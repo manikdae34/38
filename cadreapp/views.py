@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Cadre, Division, District, Upazila
 from .forms import CadreForm
 
@@ -17,12 +17,13 @@ def load_district(request):
 
     
 def Index(request):
-    form = CadreForm
+    form = CadreForm()
 
     if request.method == 'POST':
         form = CadreForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('/')
 
     context = {
          'form': form
